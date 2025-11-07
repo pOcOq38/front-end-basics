@@ -85,18 +85,12 @@ function avgSumAbv() {
   let avg = sum / 5;
 
   for (let i = 0; i < 5; i++) {
-    // get salaries
     let sal = parseInt(prompt("salary:  "));
-
-    //sum
     sum = sum + sal;
-
-    //count above 1000
     if (sal > 1000) {
       cnt++;
     }
   }
-
   document.getElementById("sum").innerHTML = `sum: ${sum}`;
   document.getElementById("average").innerHTML = `avg: ${avg}`;
   document.getElementById("above1000").innerHTML = `cnt: ${cnt}`;
