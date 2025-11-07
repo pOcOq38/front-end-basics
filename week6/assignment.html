@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Functions DIY 10</title>
+  </head>
+  <body>
+    <h1>Functions DIY 10</h1>
+    <h2>Do It Yourself 1</h2>
+    <button onclick="diy1GetNum()">find max</button>
+    <p id="diy1Max"></p>
+    <br />
+    <h2>Do It Yourself 2</h2>
+    <button onclick="diy2GetNum()">find max</button>
+    <p id="diy2Max"></p>
+    <br />
+  </body>
+  <script>
+    //Do It Yourself 1
+    function diy1GetNum() {
+      let n1 = parseInt(prompt("print n1"));
+      let n2 = parseInt(prompt("print n2"));
+      let n3 = parseInt(prompt("print n3"));
+      maxBetween3Numbers(n1, n2, n3);
+    }
+    function maxBetween3Numbers(n1, n2, n3) {
+      let max = Math.max(n1, n2, n3);
+      document.getElementById("max").innerHTML = `max is : ${max}`;
+    }
+
+    //Do It Yourself 2
+    let maxNumber = function () {};
+  </script>
+</html>
