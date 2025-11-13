@@ -38,7 +38,7 @@
     <button onclick="numExist3()">The number exists</button>
     <br />
     <h2>Do It Yourself 10</h2>
-    <button onclick="getMinNum()">find Min</button>
+    <button onclick="getMinNum(3, 5, 9)">find Min</button>
   </body>
   <script>
     //Do It Yourself 1
@@ -89,6 +89,7 @@
     function getMaxNumFromArr1() {
       let max = Math.max(...arr);
       alert(`max number: ${max}`);
+      return max;
     }
 
     //Do It Yourself 5
@@ -107,24 +108,22 @@
     const num = 6;
 
     function numExist1() {
-      let bool = false;
       for (let i = 0; i < arr.length; i++) {
         if (arr[i] == num) {
-          bool = true;
+          alert("The number exists in the array");
+          return true;
         }
       }
-      alert(bool);
     }
 
     //Do It Yourself 8
     const numExist2 = function () {
-      let bool = false;
       for (let i = 0; i < arr.length; i++) {
         if (arr[i] == num) {
-          bool = true;
+          alert("The number exists in the array");
+          return true;
         }
       }
-      alert(bool);
     };
 
     //Do It Yourself 9
@@ -132,18 +131,14 @@
       let bool = false;
       for (let i = 0; i < arr.length; i++) {
         if (arr[i] == num) {
-          bool = true;
+          alert("The number exists in the array");
+          return true;
         }
       }
-      alert(bool);
     };
 
     //Do It Yourself 10
-    let n1 = 3;
-    let n2 = 5;
-    let n3 = 9;
-
-    function getMinNum() {
+    function getMinNum(n1, n2, n3) {
       let min = Math.min(n1, n2, n3);
       alert(`The minimum number is ${min}`);
     }
