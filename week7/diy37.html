@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=
+    , initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Change second to red</h1>
+    <button onclick="changeSecondItemToRed()">change</button>
+        <ul id="myFriends">
+            <li>hi</li>
+            <li>by</li>
+            <li>dy</li>
+      </ul>
+</body>
+<script>
+  function changeSecondItemToRed() {
+        let secondList = document.getElementById("myFriends").getElementsByTagName("li")[1];
+        secondList.style.color = "red";
+    }
+</script>
+</html>
