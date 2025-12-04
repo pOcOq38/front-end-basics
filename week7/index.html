@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Functions DIY</title>
+  </head>
+  <body>
+    <h1>Do It Yourself Class Practice 25</h1>
+    <button onclick="getNum1()">find max</button>
+    <p id="diy1Max"></p>
+    <br />
+    <h1>Do It Yourself Class Practice 26</h1>
+    <button onclick="getNum2()">find max</button>
+    <p id="diy2Max"></p>
+    <br />
+    <h1>Do It Yourself Class Practice 27</h1>
+    <button onclick="getNum3()">find max</button>
+    <p id="diy3Max"></p>
+    <br />
+    <h1>Do It Yourself Class Practice 28</h1>
+    <button onclick="getMaxNumFromArr1()">find max</button>
+    <br />
+    <h1>Do It Yourself Class Practice 29</h1>
+    <button onclick="getMaxNumFromArr2()">find max</button>
+    <br />
+    <h1>Do It Yourself Class Practice 30</h1>
+    <button onclick="getMaxNumFromArr3()">find max</button>
+    <br />
+    <h1>Do It Yourself Class Practice 31</h1>
+    <button onclick="numExist1()">The number exists</button>
+    <br />
+    <h1>Do It Yourself Class Practice 32</h1>
+    <button onclick="numExist2()">The number exists</button>
+    <br />
+    <h1>Do It Yourself Class Practice 33</h1>
+    <button onclick="numExist3()">The number exists</button>
+    <br />
+    <h1>Do It Yourself Class Practice 34</h1>
+    <button onclick="getMinNum(3, 5, 9)">find Min</button>
+  </body>
+  <script>
+    //Do It Yourself 25
+    function getNum1() {
+      let diy1N1 = parseInt(prompt("print n1"));
+      let diy1N2 = parseInt(prompt("print n2"));
+      let diy1N3 = parseInt(prompt("print n3"));
+
+      maxBetween3Numbers1(diy1N1, diy1N2, diy1N3);
+    }
+
+    function maxBetween3Numbers1(n1, n2, n3) {
+      let diy1Max = Math.max(n1, n2, n3);
+      document.getElementById("diy1Max").innerHTML = `max is : ${diy1Max}`;
+    }
+
+    //Do It Yourself 26
+    const getNum2 = function () {
+      let diy2N1 = parseInt(prompt("print n1"));
+      let diy2N2 = parseInt(prompt("print n2"));
+      let diy2N3 = parseInt(prompt("print n3"));
+
+      maxBetween3Numbers2(diy2N1, diy2N2, diy2N3);
+    };
+
+    const maxBetween3Numbers2 = function (n1, n2, n3) {
+      let diy2Max = Math.max(n1, n2, n3);
+      document.getElementById("diy2Max").innerHTML = `max is : ${diy2Max}`;
+    };
+
+    //Do It Yourself 27
+    const getNum3 = () => {
+      let diy3N1 = parseInt(prompt("print n1"));
+      let diy3N2 = parseInt(prompt("print n2"));
+      let diy3N3 = parseInt(prompt("print n3"));
+
+      maxBetween3Numbers3(diy3N1, diy3N2, diy3N3);
+    };
+
+    const maxBetween3Numbers3 = (n1, n2, n3) => {
+      let diy3Max = Math.max(n1, n2, n3);
+      document.getElementById("diy3Max").innerHTML = `max is : ${diy3Max}`;
+    };
+
+    //Do It Yourself 28
+    const arr = [1, 6, 2, 9];
+
+    function getMaxNumFromArr1() {
+      let max = Math.max(...arr);
+      alert(`max number: ${max}`);
+      return max;
+    }
+
+    //Do It Yourself 29
+    const getMaxNumFromArr2 = function () {
+      let max = Math.max(...arr);
+      alert(`max number: ${max}`);
+    };
+
+    //Do It Yourself 30
+    const getMaxNumFromArr3 = () => {
+      let max = Math.max(...arr);
+      alert(`max number: ${max}`);
+    };
+
+    //Do It Yourself 31
+    const num = 6;
+
+    function numExist1() {
+      for (let i = 0; i < arr.length; i++) {
+        if (arr[i] == num) {
+          alert("The number exists in the array");
+          return true;
+        }
+      }
+    }
+
+    //Do It Yourself 32
+    const numExist2 = function () {
+      for (let i = 0; i < arr.length; i++) {
+        if (arr[i] == num) {
+          alert("The number exists in the array");
+          return true;
+        }
+      }
+    };
+
+    //Do It Yourself 33
+    const numExist3 = () => {
+      let bool = false;
+      for (let i = 0; i < arr.length; i++) {
+        if (arr[i] == num) {
+          alert("The number exists in the array");
+          return true;
+        }
+      }
+    };
+
+    //Do It Yourself 34
+    function getMinNum(n1, n2, n3) {
+      let min = Math.min(n1, n2, n3);
+      alert(`The minimum number is ${min}`);
+    }
+  </script>
+</html>
