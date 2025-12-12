@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+</html>
+<script>
+  function createBtn(i) {
+    return function () {
+      alert(`You clicked button ${i}`);
+    };
+  }
+
+  const generateBtn = createBtn();
+
+  for (var i = 0; i < 5; i++) {
+    const button = document.createElement("button");
+    button.textContent = `Button ${i}`;
+    button.onclick = createBtn(i);
+    document.body.appendChild(button);
+  }
+</script>
