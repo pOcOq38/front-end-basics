@@ -273,7 +273,9 @@
 
     function nextQuestion() {
       hintCount = 0;
-      questionNumber++;
+      if (arr.length !== 0) {
+        questionNumber++;
+      }
       msg.textContent = "";
       document.querySelector(
         ".countQuestion"
