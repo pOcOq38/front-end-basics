@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Stack Demo – Browser History</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <h1>Stack in Action – Browser History</h1>
+    <div class="the-current-page">
+      Current: <span class="current-page" id="current">Current Page</span>
+    </div>
+
+    <div class="stacks">
+      <div class="stack-box">
+        <div class="label">Back Stack</div>
+        <div id="back" class="stack"></div>
+      </div>
+      <div class="stack-box">
+        <div class="label">Forward Stack</div>
+        <div id="forward" class="stack"></div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button id="backBtn">Back</button>
+      <button id="visit">Visit New Page</button>
+      <button id="forwardBtn">Forward</button>
+    </div>
+
+    <script>
+      class Stack {
+        constructor() {
+          this.items = [];
+        }
+        push(x) {
+          this.items.push(x);
+        }
+        pop() {
+          return this.items.pop();
+        }
+        peek() {
+          return this.items[this.items.length - 1];
+        }
+        get length() {
+          return this.items.length;
+        }
+        clear() {
+          this.items = [];
+        }
+      }
+
+      class Page {
+        constructor(id, color, name) {
+          this.id = id;
+          this.color = color;
+          this.name = name;
+        }
+
+        createPageBar() {
+          const div = document.createElement("div");
+          div.className = "bar";
+          div.style.backgroundColor = this.color;
+          div.textContent = this.name;
+          return div;
+        }
+      }
+
+      const backStack = new Stack();
+      const forwardStack = new Stack();
+      let current = new Page((id = 0), (color = "#aef8d3"), (name = "Home"));
+      let counter = 0;
+
+      const colors = [
+        "#e6194b",
+        "#f58231",
+        "#ffe119",
+        "#3cb44b",
+        "#4363d8",
+        "#911eb4",
+        "#f032e6",
+        "#42d4f4",
+      ];
+
+      // Pre-fill Back stack with 8 pages
+      for (let i = 0; i < 8; i++) {
+        backStack.push(
+          new Page(
+            (id = ++counter),
+            (color = colors[i]),
+            (name = `Page ${counter}`)
+          )
+        );
+      }
+
+      // render
+      function render() {
+        document.getElementById("current").textContent = current.name;
+
+        const backEl = document.getElementById("back");
+        const fwdEl = document.getElementById("forward");
+        backEl.innerHTML = "";
+        fwdEl.innerHTML = "";
+
+        backStack.items.forEach((page) =>
+          backEl.appendChild(page.createPageBar())
+        );
+        forwardStack.items.forEach((page) =>
+          fwdEl.appendChild(page.createPageBar())
+        );
+
+        document.getElementById("backBtn").disabled = backStack.length === 0;
+        document.getElementById("forwardBtn").disabled =
+          forwardStack.length === 0;
+      }
+
+      // Visit New Page
+      // This should add a page bar div to the back stack
+      // it also clears the forward stack
+      document.getElementById("visit").onclick = () => {
+        const page = new Page(
+          (id = counter++),
+          (color = colors[(counter - 1) % colors.length]),
+          (name = `Page ${counter}`)
+        );
+        backStack.push(current);
+        current = page;
+        forwardStack.clear();
+        render();
+      };
+
+      // Back
+      // pop a page from the back stack
+      // push current page to forward stack
+      // set new current page (the page popped from back stack)
+      document.getElementById("backBtn").onclick = () => {
+        if (backStack.length === 0) return;
+        const page = backStack.pop();
+        forwardStack.push(current);
+        current = page;
+        render();
+      };
+
+      // Forward
+      // opposite of back. push current to back stack
+      // pop a page from the forward stack and set as current
+      document.getElementById("forwardBtn").onclick = () => {
+        if (forwardStack.length === 0) return;
+        const page = forwardStack.pop();
+        backStack.push(current);
+        current = page;
+        render();
+      };
+
+      render();
+    </script>
+  </body>
+</html>

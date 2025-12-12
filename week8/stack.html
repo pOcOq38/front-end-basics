@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Stack Demo – Browser History</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <h1>Stack in Action – Browser History</h1>
+    <div class="current-page" id="current">Current Page</div>
+
+    <div class="stacks">
+      <div class="stack-box">
+        <div class="label">Back Stack</div>
+        <div id="back" class="stack"></div>
+      </div>
+      <div class="stack-box">
+        <div class="label">Forward Stack</div>
+        <div id="forward" class="stack"></div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button id="visit">Visit New Page</button>
+      <button id="backBtn">Back</button>
+      <button id="forwardBtn">Forward</button>
+    </div>
+
+    <script>
+      class Stack {
+        constructor() {
+          this.items = [];
+        }
+        push(x) {
+          this.items.push(x);
+        }
+        pop() {
+          return this.items.pop();
+        }
+        peek() {
+          return this.items[this.items.length - 1];
+        }
+        get length() {
+          return this.items.length;
+        }
+        clear() {
+          this.items = [];
+        }
+      }
+
+      const backStack = new Stack();
+      const forwardStack = new Stack();
+      let current = "Home";
+      let counter = 1;
+
+      const colors = [
+        "#e6194b",
+        "#f58231",
+        "#ffe119",
+        "#3cb44b",
+        "#4363d8",
+        "#911eb4",
+        "#f032e6",
+        "#42d4f4",
+      ];
+
+      // Pre-fill Back stack with 8 pages
+      for (let i = 0; i < 8; i++) {
+        backStack.push({ id: ++counter, color: colors[i] });
+      }
+
+      function createBar(data) {
+        const div = document.createElement("div");
+        div.className = "bar";
+        div.style.backgroundColor = data.color;
+        div.textContent = `Page ${data.id}`;
+        return div;
+      }
+
+      function render() {
+        document.getElementById("current").textContent = current;
+
+        const backEl = document.getElementById("back");
+        const fwdEl = document.getElementById("forward");
+        backEl.innerHTML = "";
+        fwdEl.innerHTML = "";
+
+        backStack.items.forEach((item) => backEl.appendChild(createBar(item)));
+        forwardStack.items.forEach((item) =>
+          fwdEl.appendChild(createBar(item))
+        );
+
+        document.getElementById("backBtn").disabled = backStack.length === 0;
+        document.getElementById("forwardBtn").disabled =
+          forwardStack.length === 0;
+      }
+
+      document.getElementById("visit").onclick = () => {
+        backStack.push({
+          id: ++counter,
+          color: colors[(counter - 1) % colors.length],
+          name: `Page ${counter}`,
+        });
+        current = `Page ${counter}`;
+        forwardStack.clear();
+        render();
+      };
+
+      document.getElementById("backBtn").onclick = () => {
+        if (backStack.length === 0) return;
+        forwardStack.push({ id: current.match(/\d+/)?.[0], color: "#ff6b6b" });
+        const page = backStack.pop();
+        current = `Page ${page.id}`;
+        render();
+      };
+
+      document.getElementById("forwardBtn").onclick = () => {
+        if (forwardStack.length === 0) return;
+        backStack.push({ id: current.match(/\d+/)?.[0], color: "#ff6b6b" });
+        const page = forwardStack.pop();
+        current = `Page ${page.id}`;
+        render();
+      };
+
+      render();
+    </script>
+  </body>
+</html>
