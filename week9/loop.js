@@ -23,3 +23,7 @@ words.forEach(function (word) {
 }); // one // two // four
 
 console.log(words); // ['two', 'three', 'four']
+
+for (let i = 0; i < arr.length; i++) {
+  console.log(arr1[i]);
+}
