@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    let req = new XMLHttpRequest(); // instantiates a new object of the XMLHttpRequest class //create a new instance of this class
+    let p; //declares the variabl p
+    let x = 5; //assigning the value 5 to the variable x. // initializes x with the value 5
+    req.open("GET", "myCar.html"); //The function belongs to the object(class) = method
+
+    class Person {
+      constructor(name) {
+        this.name = name; // // "this" refers to the instance that is currently being created (this는 "현재 메서드를 호출한 객체(인스턴스)"를 가리키는 참조)
+      }
+      //function belongs to the class(instance) = method (class 안에 있는 function이라 method임 )
+      intro() {
+        return `Hi there, I'm ${this.name}`; //If name is not passed as a parameter, it is not available in the local scope, so we need to use this to refer to the object's property.(name을 파라미터로 넘기지 않으면 scope 안에 name이 없기 때문에 this로 객체를 참조해줘야 함)
+      }
+      greet(name) {
+        return `Hello, ${name}`; //Since name is a parameter, it exists in the method's local scope, so we don't need to access it through this.(name이 파라미터로 넘어와서 scope안에 있기 때문에 this로 객체 참조를 하지 않아도 됨)
+      }
+    }
+    const p1 = new Person("Chaeyeon");
+    const p2 = new Person("Alex");
+
+    p1.intro(); // p1.intro() 호출 시: this → p1 / this.name → p1.name → "Chaeyeon"
+    p2.intro(); // this → p2
+    p1.name; //name = property / attribute
+  </script>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input type="text" id="countryInput" />
+    <button onclick="getCountry()">search</button>
+    <div id="loading" style="display: none">loading...</div>
+    <div class="flags"></div>
+    <div style="width: 200px">
+      <img src="" id="myimage" alt="image" />
+    </div>
+  </body>
+</html>
+<script>
+  const div = document.querySelector(".flags");
+  const loadingDiv = document.querySelector("#loading");
+
+  function renderCountry(data) {
+    console.log(data);
+    const html = `<div> 
+    <img width="200" height="100" src="${data.flag}" />
+		<p id="country">${data.flag}</p>
+		<p id="region">${data.region}</p>
+		<p id="population">${data.population}</p>
+		<p id="language">${data.languages[0].name}</p>
+		<p id="currency">${data.currencies[0].name}</p>
+	</div>`;
+
+    div.insertAdjacentHTML("beforeend", html);
+  }
+
+  function getCountry() {
+    const name = document.querySelector("#countryInput").value;
+
+    loadingDiv.style.display = "block";
+
+    fetch(`https://restcountries.com/v2/name/${name}`)
+      .then((response) => {
+        if (!response.ok) throw new Error("Can not find country");
+        return response.json();
+      })
+      .then((data) => renderCountry(data[0]))
+      .catch((err) => console.error("Error: ", err))
+      .finally(() => {
+        loadingDiv.style.display = "none";
+      });
+  }
+
+  function getRequest() {
+    return new Promise((resolve, reject) => {
+      const req = new XMLHttpRequest();
+      req.open("GET", "https://dog.ceo/api/breeds/image/random"); // ✅ breeds
+
+      req.onload = function () {
+        if (req.status === 200) {
+          const resp = JSON.parse(req.responseText);
+          resolve(resp);
+        } else {
+          reject(new Error(`Error: ${req.status} ${req.statusText}`));
+        }
+      };
+
+      req.send();
+    });
+  }
+
+  getRequest()
+    .then((resp) => {
+      document.getElementById("myimage").src = resp.message;
+    })
+    .catch((err) => console.error("Error:", err));
+</script>

@@ -1,0 +1,62 @@
+<!-- Create a webpage that uses async/await to display come data or images using a web api -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input type="text" id="countryInput" />
+    <button onclick="getCountry()">search</button>
+    <div id="loading" style="display: none">loading...</div>
+    <div class="flags"></div>
+  </body>
+</html>
+<script>
+  const div = document.querySelector(".flags");
+  const loadingDiv = document.querySelector("#loading");
+
+  function renderCountry(data) {
+    console.log(data);
+    const html = `<div>
+      		<img width="200" height="100" src="${data.flag}" />
+      		<p id="country">${data.flag}</p>
+      		<p id="region">${data.region}</p>
+      		<p id="population">${data.population}</p>
+      		<p id="language">${data.languages[0].name}</p>
+      		<p id="currency">${data.currencies[0].name}</p>
+      	</div>`;
+
+    div.insertAdjacentHTML("beforeend", html);
+  }
+
+  async function getCountry() {
+    const name = document.querySelector("#countryInput").value;
+
+    loadingDiv.style.display = "block";
+
+    try {
+      const response = await fetch(`https://restcountries.com/v2/name/${name}`);
+
+      if (!response.ok) {
+        throw new Error("Can not find country");
+      }
+
+      const data = await response.json();
+      // Without `await`, response.json() returns a Promise, not the actual JSON data,
+      // which causes `renderCountry` to receive `undefined`.
+      // (await를 안 쓰면 respone.json() json객체가 아니라 Promise 객체가 반환돼서 renderCountry(undefined)로 넘어감)
+
+      // `await` waits for the body to be read and parsed before returning the data.
+      // (await를 써야 파일 다 읽을 때까지 기다리고 실제 내용을 받음)
+
+      //console.log("data :: ", data);
+      renderCountry(data[0]);
+    } catch (err) {
+      console.log("Error: ", err);
+    } finally {
+      loadingDiv.style.display = "none";
+    }
+  }
+</script>
