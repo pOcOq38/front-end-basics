@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        background: white;
+        color: black;
+      }
+      body.dark {
+        background: #111;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Dark Mode</h2>
+    <button id="toggle">Dark Mode</button>
+    <hr />
+    <div>
+      <h2>Sign up</h2>
+      <input id="userId" />
+      <input id="userPw" />
+      <button onclick="signUp()">Sign Up</button>
+    </div>
+    <div>
+      <h2>Sign In</h2>
+      <input id="siId" />
+      <input id="siPw" />
+      <button onclick="signIn()">Sign In</button>
+    </div>
+  </body>
+</html>
+<script>
+  function signUp() {
+    const userId = document.getElementById("userId").value;
+    const userPw = document.getElementById("userPw").value;
+
+    localStorage.setItem(
+      "user",
+      JSON.stringify({ id: userId, password: userPw })
+    );
+    console.log(localStorage.getItem("user"));
+    alert("Sign up!");
+  }
+
+  function signIn() {
+    const siId = document.getElementById("siId").value;
+    const siPw = document.getElementById("siPw").value;
+
+    const saved = JSON.parse(localStorage.getItem("user"));
+    if (saved.id === siId && saved.password === siPw) {
+      localStorage.setItem("currentUser", siId);
+      alert("Sign in!");
+    }
+  }
+
+  function saveTheme() {
+    const currentUser = localStorage.getItem("currentUser");
+    if (!currentUser) {
+      alert("Sign in first!");
+    }
+    const currentUserId = JSON.parse(localStorage.getItem("currentUser")).siId;
+  }
+</script>
